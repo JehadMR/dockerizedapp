@@ -1,6 +1,5 @@
 import pip._vendor.requests as requests
 import os
-from config import API_key as key
 
 class MOVIES:
     def __init__(self, movie_id = None, movie_name = None):
@@ -9,9 +8,10 @@ class MOVIES:
         self.movie_rating = None
         self.overview = None
         self.release = None
-        self.CONFIG_PATTERN = f'http://api.themoviedb.org/3/configuration?api_key={key}'
+        self.key = os.environ['tmdbkey']
+        self.CONFIG_PATTERN = f'http://api.themoviedb.org/3/configuration?api_key={self.key}'
         self.get_movie_id()
-        self.IMG_PATTERN = f'http://api.themoviedb.org/3/movie/{self.movie_id}/images?api_key={key}' 
+        self.IMG_PATTERN = f'http://api.themoviedb.org/3/movie/{self.movie_id}/images?api_key={self.key}' 
 
     def get_json(self, url):
         r = requests.get(url)
@@ -19,7 +19,7 @@ class MOVIES:
 
     def get_movie_id(self):
         if self.movie_id == None and self.movie_name != None:
-            res = self.get_json(f'https://api.themoviedb.org/3/search/movie?api_key={key}&query={self.movie_name}')
+            res = self.get_json(f'https://api.themoviedb.org/3/search/movie?api_key={self.key}&query={self.movie_name}')
             first_result = res['results']
             print('Response =>', first_result)
             self.movie_name = first_result[0]['original_title']

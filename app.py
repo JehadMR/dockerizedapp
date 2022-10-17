@@ -1,4 +1,5 @@
 import codecs
+import uuid
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 from bs4 import BeautifulSoup as BSHTML
 import IMDBapp
@@ -7,12 +8,15 @@ import Mongoapp
 
 app = Flask(__name__)
 
-my_mongo = Mongoapp.Mongo('localhost', 27017, 'movieland', 'movieposters')
+my_mongo = Mongoapp.Mongo('movies_mongodb', 27017, 'movieland', 'movieposters')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/instance-id')
+def instance_id():
+    return f"instance-id : {uuid.uuid4().hex}"
 
 @app.route('/qposter', methods = ['POST', 'GET'])
 def get_poster_req():
@@ -91,4 +95,4 @@ def get_posters(movie_name):
 
 
 
-app.run(host='0.0.0.0', port=3000, debug = True)
+app.run(host='0.0.0.0', port=5000)

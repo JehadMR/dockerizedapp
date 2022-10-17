@@ -4,8 +4,8 @@ import pymongo
 
 
 class Mongo:
-    def __init__(self, ip, port, db_name, col_name):
-        self.client = pymongo.MongoClient(ip, port)
+    def __init__(self, host, port, db_name, col_name):
+        self.client = pymongo.MongoClient(host, port)
         self.database = self.client[db_name]
         self.collection = self.database[col_name]
         self.gfs = gridfs.GridFS(self.database, collection=f'{col_name}')

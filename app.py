@@ -7,9 +7,7 @@ import Mongoapp
 
 
 app = Flask(__name__)
-
-#my_mongo = Mongoapp.Mongo('movies_mongodb', 27017, 'movieland', 'movieposters')
-my_mongo = Mongoapp.Mongo('localhost', 27017, 'movieland', 'movieposters')
+my_mongo = Mongoapp.Mongo('movies_mongodb', 27017, 'movieland', 'movieposters')
 
 @app.route('/')
 def index():
